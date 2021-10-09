@@ -1,0 +1,80 @@
+1|
+CREATE TABLE admin(
+   id INTEGER(5) NOT NULL AUTO_INCREMENT PRIMARY KEY,
+   neme VARCHAR(15) NOT NULL,
+   email VARCHAR(15) NOT NULL,
+   phone_no CHAR(11) NOT NULL
+)
+
+
+2|
+CREATE TABLE guardian(
+    id INTEGER(5) NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(15) NOT NULL,
+    city VARCHAR(15) NOT NULL,
+    area VARCHAR(25) NOT NULL,
+    postal_code INTEGER(5),
+    house_no VARCHAR(15) NOT NULL,
+    phone_no CHAR(11) NOT NUll,
+    email VARCHAR(20) NOT NULL,
+    password VARCHAR(15) NOT NULL
+)
+
+3|
+CREATE TABLE tutor(
+    id INTEGER(5) NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(15) NOT NULL,
+    city VARCHAR(15) NOT NULL,
+    postal_code INTEGER(5) NOT NULL,
+    area VARCHAR(25) NOT NULL,
+    salary_range VARCHAR(15) NOT NULL,
+    class_name VARCHAR(15) NOT NULL,
+    phone_no CHAR(11) NOT NULL,
+    email VARCHAR(20) NOT NULL,
+    password VARCHAR(15) NOT NULL
+)
+
+
+4|
+CREATE TABLE t_complain(
+    cid INTEGER NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    t_id INTEGER(5) NOT NULL,
+    g_id INTEGER(5) NOT NULL,
+    complain TEXT NOT NULL,
+    c_date DATETIME,
+    CONSTRAINT t1 FOREIGN KEY(t_id) REFERENCES tutor(id),
+    CONSTRAINT g1 FOREIGN KEY(g_id) REFERENCES guardian(id)   
+)
+
+5|
+CREATE TABLE rating(
+    rid INTEGER NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    g_id INTEGER(5) NOT NULL,
+    t_id INTEGER(5) NOT NULL,
+    rating INTEGER(5),
+    CONSTRAINT g2  FOREIGN KEY(g_id) REFERENCES guardian(id),
+    CONSTRAINT t2  FOREIGN KEY(t_id) REFERENCES tutor(id)    
+)
+
+
+
+6|
+CREATE TABLE payment(
+    id INTEGER(5) NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    trid INTEGER(10) NOT NULL UNIQUE,
+    t_id INTEGER(5) NOT NULL,
+    t_phone_no CHAR(11) NOT NULL,
+    amount INTEGER(10) NOT NULL,
+    p_date DATETIME NOT NULL,
+    CONSTRAINT t4  FOREIGN KEY(t_id) REFERENCES tutor(id) 
+)
+7|
+CREATE TABLE bmessage(
+    g_id INTEGER(5) NOT NULL,
+    t_id INTEGER(5) NOT NULL,
+    day INTEGER(5),
+    tutiontime VARCHAR(15),
+    salary INTEGER(5),
+    CONSTRAINT g4 FOREIGN KEY(g_id) REFERENCES guardian(id),
+    CONSTRAINT t5 FOREIGN KEY(t_id) REFERENCES tutor(id)    
+)
